@@ -11,12 +11,12 @@ const cardSchema = new Schema({
   },
   boardId: {
     type: Schema.Types.ObjectId,
-    // required: true,
+    required: true,
     ref: 'board'
   },
   listId: {
     type: Schema.Types.ObjectId,
-    // required: true,
+    required: true,
     ref: 'list'
   },
   members: [

@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "cardSeeds": "node models/seeds/cardSeeder.js",
     "boardSeeds": "node models/seeds/boardSeeder.js",
-    "listSeeds": "node models/seeds/listSeeder.js"
+    "listSeeds": "node models/seeds/listSeeder.js",
+    "userSeeds": "node models/seeds/userSeeder.js"
   },
   "keywords": [],
   "author": "",

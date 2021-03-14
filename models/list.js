@@ -8,12 +8,12 @@ const listSchema = new Schema({
   },
   userCreated: {
     type: Schema.Types.ObjectId,
-    // required: true,
+    required: true,
     ref: 'user'
   },
   boardId: {
     type: Schema.Types.ObjectId,
-    // required: true,
+    required: true,
     ref: 'board'
   },
   order: {
