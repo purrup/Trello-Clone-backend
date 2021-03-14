@@ -25,7 +25,7 @@ const cardSchema = new Schema({
       ref: 'user'
     }
   ],
-  sort: {
+  order: {
     type: Number,
     decimal: true,
     required: true

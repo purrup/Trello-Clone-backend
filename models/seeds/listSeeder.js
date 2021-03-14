@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const Card = require('../card.js')
+const List = require('../list.js')
 const dbPath = 'mongodb://localhost/trello-clone'
 
 mongoose.connect(dbPath, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -13,11 +13,11 @@ db.once('open', () => {
   console.log('db connected!')
 
   for (let i = 0; i < 5; i++) {
-    Card.create({
-      title: 'Card title-' + i,
+    List.create({
+      title: 'List title-' + i,
       order: i
     })
   }
 
-  console.log('Cards seeds generated!')
+  console.log('Lists seeds generated!')
 })
