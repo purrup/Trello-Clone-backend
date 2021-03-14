@@ -1,17 +1,17 @@
 module.exports = {
   env: {
     es6: true,
-    node: true,
+    node: true
   },
   extends: ['standard', 'prettier'],
   plugins: ['prettier'],
   globals: {
     Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly',
+    SharedArrayBuffer: 'readonly'
   },
   parserOptions: {
     ecmaVersion: 2018,
-    sourceType: 'module',
+    sourceType: 'module'
   },
   rules: {
     'prettier/prettier': [
@@ -19,7 +19,8 @@ module.exports = {
       {
         singleQuote: true,
         semi: false,
-      },
-    ],
-  },
-};
+        trailingComma: 'none'
+      }
+    ]
+  }
+}
