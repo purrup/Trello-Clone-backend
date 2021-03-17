@@ -9,9 +9,7 @@ const db = mongoose.connection
 db.on('error', () => console.error.bind(console, 'connection error:'))
 db.once('open', () => console.log('db successfully connected!'))
 
-app.get('/', (req, res) => {
-  res.send('This is trello-backend server')
-})
+app.use('/', require('./routes'))
 
 app.listen(port, () => {
   console.log(`Server is now running on http://localhost:${port}`)
