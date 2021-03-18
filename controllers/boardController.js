@@ -43,6 +43,10 @@ const boardController = {
           }
         }
       ])
+      if (!board || board.length === 0) {
+        res.status(404).end()
+        return
+      }
       res.send(board)
     } catch (error) {
       console.log(error)
@@ -57,14 +61,18 @@ const boardController = {
           message: 'Data to update can not be empty!'
         })
       }
-      const data = await Boards.findByIdAndUpdate(
+      const board = await Boards.findByIdAndUpdate(
         req.params.id,
         { $set: req.body }, // This $set helps prevent accidentally overwriting the whole document with updated data
         {
           useFindAndModify: false
         }
       )
-      res.send(`req.body:${data}`)
+      if (!board || board.length === 0) {
+        res.status(404).end()
+        return
+      }
+      res.send(`req.body:${board}`)
     } catch (error) {
       console.log(error)
       res.status(500).send()
@@ -72,7 +80,17 @@ const boardController = {
   },
   // 刪除單一board
   async deleteBoard(req, res) {
-    res.send(`delete board id: ${req.params.id}`)
+    try {
+      const board = await Boards.findByIdAndDelete(req.params.id)
+      if (!board || board.length === 0) {
+        res.status(404).end()
+        return
+      }
+      res.send(`delete return query: ${board}`)
+    } catch (error) {
+      console.log(error)
+      res.status(500).send()
+    }
   }
 }
 
