@@ -14,10 +14,10 @@ db.on('error', () => {
 db.once('open', async () => {
   console.log('db connected!')
   const lists = await List.find({})
-  const randomListIndex = Math.floor(Math.random() * Math.floor(lists.length))
-  const listId = lists[randomListIndex]._id
-  const boardId = lists[randomListIndex].boardId
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 10; i++) {
+    const randomListIndex = Math.floor(Math.random() * Math.floor(lists.length))
+    const listId = lists[randomListIndex]._id
+    const boardId = lists[randomListIndex].boardId
     Card.create({
       title: 'Card title-' + i,
       listId: listId,

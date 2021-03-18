@@ -1,4 +1,7 @@
 const Boards = require('../models/board.js')
+const Lists = require('../models/list.js')
+const Cards = require('../models/card.js')
+
 const mongoose = require('mongoose')
 
 const boardController = {
@@ -82,6 +85,10 @@ const boardController = {
   async deleteBoard(req, res) {
     try {
       const board = await Boards.findByIdAndDelete(req.params.id)
+      // delete all lists and cards connected with the board
+      await Lists.deleteMany({ boardId: req.params.id })
+      await Cards.deleteMany({ boardId: req.params.id })
+
       if (!board || board.length === 0) {
         res.status(404).end()
         return
