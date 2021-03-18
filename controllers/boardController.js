@@ -51,7 +51,24 @@ const boardController = {
   },
   // 修改單一board
   async updateBoard(req, res) {
-    res.send(`update board id: ${req.params.id}`)
+    try {
+      if (!req.body) {
+        return res.status(400).send({
+          message: 'Data to update can not be empty!'
+        })
+      }
+      const data = await Boards.findByIdAndUpdate(
+        req.params.id,
+        { $set: req.body }, // This $set helps prevent accidentally overwriting the whole document with updated data
+        {
+          useFindAndModify: false
+        }
+      )
+      res.send(`req.body:${data}`)
+    } catch (error) {
+      console.log(error)
+      res.status(500).send()
+    }
   },
   // 刪除單一board
   async deleteBoard(req, res) {
