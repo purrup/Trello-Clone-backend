@@ -2,6 +2,26 @@ const Lists = require('../models/list.js')
 const Cards = require('../models/card.js')
 
 const listController = {
+  // 建立單一list
+  async createList(req, res) {
+    try {
+      const { title, userCreated, boardId, order } = req.body
+      const list = await Lists.create({
+        title,
+        userCreated,
+        boardId,
+        order
+      })
+      if (!list || list.length === 0) {
+        res.status(404).end()
+        return
+      }
+      res.send(list)
+    } catch (error) {
+      console.log(error)
+      res.status(500).send()
+    }
+  },
   // 修改單一list
   async updateList(req, res) {
     try {
