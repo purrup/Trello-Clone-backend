@@ -10,7 +10,7 @@ router.get('/:id', (req, res) => {
   res.send('send a certain user')
 })
 // 修改單一user
-router.post('/:id', (req, res) => {
+router.put('/:id', (req, res) => {
   res.send('edit a user')
 })
 // 刪除單一user

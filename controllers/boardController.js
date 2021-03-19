@@ -5,6 +5,24 @@ const Cards = require('../models/card.js')
 const mongoose = require('mongoose')
 
 const boardController = {
+  // 建立一個board
+  async createBoard(req, res) {
+    try {
+      const { title, userId } = req.body
+      const board = await Boards.create({
+        title,
+        userId
+      })
+      if (!board || board.length === 0) {
+        res.status(404).end()
+        return
+      }
+      res.send(board)
+    } catch (error) {
+      console.log(error)
+      res.status(500).send()
+    }
+  },
   // 列出全部boards
   async getBoards(req, res) {
     try {

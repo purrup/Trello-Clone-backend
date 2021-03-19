@@ -6,6 +6,10 @@ const boardSchema = new Schema({
     type: String,
     required: true
   },
+  userId: {
+    type: Schema.Types.ObjectId,
+    required: true
+  },
   members: [
     {
       type: Schema.Types.ObjectId,
