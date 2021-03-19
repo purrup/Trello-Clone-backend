@@ -5,13 +5,8 @@ const listController = {
   // 建立單一list
   async createList(req, res) {
     try {
-      const { title, userCreated, boardId, order } = req.body
-      const list = await Lists.create({
-        title,
-        userCreated,
-        boardId,
-        order
-      })
+      const { data } = req.body
+      const list = await Lists.create({ ...data })
       if (!list || list.length === 0) {
         res.status(404).end()
         return

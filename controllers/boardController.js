@@ -8,11 +8,8 @@ const boardController = {
   // 建立一個board
   async createBoard(req, res) {
     try {
-      const { title, userCreated } = req.body
-      const board = await Boards.create({
-        title,
-        userCreated
-      })
+      const { data } = req.body
+      const board = await Boards.create({ ...data })
       if (!board || board.length === 0) {
         res.status(404).end()
         return

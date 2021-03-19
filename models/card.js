@@ -19,6 +19,11 @@ const cardSchema = new Schema({
     required: true,
     ref: 'list'
   },
+  userCreated: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: 'user'
+  },
   members: [
     {
       type: Schema.Types.ObjectId,

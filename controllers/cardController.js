@@ -1,6 +1,21 @@
 const Cards = require('../models/card.js')
 
 const cardController = {
+  // 建立單一card
+  async creatCard(req, res) {
+    try {
+      const { data } = req.body
+      const card = await Cards.create({ ...data })
+      if (!card || card.length === 0) {
+        res.status(404).end()
+        return
+      }
+      res.send(card)
+    } catch (error) {
+      console.log(error)
+      res.status(500).send()
+    }
+  },
   // 修改單一card
   async updateCard(req, res) {
     try {
