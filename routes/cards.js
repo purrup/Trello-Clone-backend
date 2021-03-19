@@ -1,13 +1,8 @@
 const express = require('express')
 const router = express.Router()
+const cardController = require('../controllers/cardController.js')
 
-// 修改單一card
-router.post('/:id', (req, res) => {
-  res.send('edit a card')
-})
-// 刪除單一card
-router.delete('/:id', (req, res) => {
-  res.send('delete a card')
-})
+router.post('/:id', cardController.updateCard)
+router.delete('/:id', cardController.deleteCard)
 
 module.exports = router
