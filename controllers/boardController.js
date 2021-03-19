@@ -67,9 +67,7 @@ const boardController = {
       const board = await Boards.findByIdAndUpdate(
         req.params.id,
         { $set: req.body }, // This $set helps prevent accidentally overwriting the whole document with updated data
-        {
-          useFindAndModify: false
-        }
+        { new: true, useFindAndModify: false } // new: true => return the modified data instead of original one
       )
       if (!board || board.length === 0) {
         res.status(404).end()
