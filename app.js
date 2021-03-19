@@ -3,6 +3,14 @@ const app = express()
 const port = 3000
 const mongoose = require('mongoose')
 const dbPath = 'mongodb://localhost/trello-clone'
+const cors = require('cors')
+
+app.use(
+  cors({
+    credentials: true,
+    origin: 'http://localhost:8080'
+  })
+)
 
 mongoose.connect(dbPath, { useNewUrlParser: true, useUnifiedTopology: true })
 const db = mongoose.connection
