@@ -17,7 +17,7 @@ db.once('open', async () => {
   for (let i = 0; i < 5; i++) {
     Board.create({
       title: 'Board title-' + i,
-      userId: getRandomUserId(users)
+      userCreated: getRandomUserId(users)
     })
   }
 
