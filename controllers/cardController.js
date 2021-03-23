@@ -19,9 +19,10 @@ const cardController = {
   // 修改單一card
   async updateCard(req, res) {
     try {
+      const { data } = req.body
       const card = await Cards.findByIdAndUpdate(
         req.params.id,
-        { $set: req.body }, // This $set helps prevent accidentally overwriting the whole document with updated data
+        { $set: data }, // This $set helps prevent accidentally overwriting the whole document with updated data
         { new: true, useFindAndModify: false } // new: true => return the modified data instead of original one
       )
       if (!card || card.length === 0) {

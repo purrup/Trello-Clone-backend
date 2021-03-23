@@ -20,9 +20,10 @@ const listController = {
   // 修改單一list
   async updateList(req, res) {
     try {
+      const { data } = req.body
       const list = await Lists.findByIdAndUpdate(
         req.params.id,
-        { $set: req.body }, // This $set helps prevent accidentally overwriting the whole document with updated data
+        { $set: data }, // This $set helps prevent accidentally overwriting the whole document with updated data
         { new: true, useFindAndModify: false } // new: true => return the modified data instead of original one
       )
       if (!list || list.length === 0) {

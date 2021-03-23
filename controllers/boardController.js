@@ -74,14 +74,15 @@ const boardController = {
   // 修改單一board
   async updateBoard(req, res) {
     try {
-      if (!req.body) {
+      const { data } = req.body
+      if (!data) {
         return res.status(400).send({
           message: 'Data to update can not be empty!'
         })
       }
       const board = await Boards.findByIdAndUpdate(
         req.params.id,
-        { $set: req.body }, // This $set helps prevent accidentally overwriting the whole document with updated data
+        { $set: data }, // This $set helps prevent accidentally overwriting the whole document with updated data
         { new: true, useFindAndModify: false } // new: true => return the modified data instead of original one
       )
       if (!board || board.length === 0) {
