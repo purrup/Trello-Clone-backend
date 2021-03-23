@@ -44,6 +44,7 @@ const boardController = {
               {
                 $match: { $expr: { $eq: ['$boardId', '$$boardId'] } }
               },
+              { $sort: { order: 1 } },
               {
                 $lookup: {
                   from: 'cards',
@@ -51,7 +52,8 @@ const boardController = {
                   pipeline: [
                     {
                       $match: { $expr: { $eq: ['$listId', '$$listId'] } }
-                    }
+                    },
+                    { $sort: { order: 1 } }
                   ],
                   as: 'cards'
                 }
@@ -89,7 +91,7 @@ const boardController = {
         res.status(404).end()
         return
       }
-      res.send(`req.body:${board}`)
+      res.send(board)
     } catch (error) {
       console.log(error)
       res.status(500).send()
