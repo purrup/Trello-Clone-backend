@@ -67,7 +67,7 @@ const boardController = {
         res.status(404).end()
         return
       }
-      res.send(board)
+      res.send(board[0])
     } catch (error) {
       console.log(error)
       res.status(500).send()
