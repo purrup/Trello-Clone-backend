@@ -20,10 +20,10 @@ const boardController = {
       res.status(500).send()
     }
   },
-  // 列出全部boards
+  // 列出user的全部boards
   async getBoards(req, res) {
     try {
-      const boards = await Boards.find({})
+      const boards = await Boards.find({ userCreated: req.params.id })
       res.send(boards)
     } catch (error) {
       console.log(error)
