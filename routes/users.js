@@ -1,14 +1,13 @@
 const express = require('express')
 const router = express.Router()
+const userController = require('../controllers/userController.js')
 
 // 列出全部users
 router.get('/', (req, res) => {
   res.send('send every users')
 })
 // 取得單一user的頁面
-router.get('/:id', (req, res) => {
-  res.send('send a certain user')
-})
+router.get('/:id', userController.getUser)
 // 修改單一user
 router.put('/:id', (req, res) => {
   res.send('edit a user')
