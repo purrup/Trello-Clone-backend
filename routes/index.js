@@ -6,6 +6,7 @@ const authenticated = passport.authenticate('jwt', { session: false })
 
 // login
 router.post('/login', userController.logIn)
+router.post('/signup', userController.signUp)
 
 router.use('/boards', authenticated, require('./boards.js'))
 router.use('/lists', authenticated, require('./lists.js'))
