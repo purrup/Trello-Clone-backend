@@ -5,6 +5,8 @@ const mongoose = require('mongoose')
 const dbPath = 'mongodb://localhost/trello-clone'
 const cors = require('cors')
 const passport = require('passport')
+const cookieParser = require('cookie-parser')
+
 require('dotenv').config()
 
 app.use(
@@ -14,6 +16,7 @@ app.use(
   })
 )
 app.use(passport.initialize())
+app.use(cookieParser())
 
 mongoose.connect(dbPath, { useNewUrlParser: true, useUnifiedTopology: true })
 const db = mongoose.connection

@@ -1,14 +1,15 @@
 const express = require('express')
 const router = express.Router()
+const userController = require('../controllers/userController.js')
+const passport = require('../config/passport.js')
+const authenticated = passport.authenticate('jwt', { session: false })
 
-// trello-clone首頁
-router.get('/', (req, res) => {
-  res.send('This is trello-backend server')
-})
+// login
+router.post('/login', userController.logIn)
 
-router.use('/boards', require('./boards.js'))
-router.use('/lists', require('./lists.js'))
-router.use('/cards', require('./cards.js'))
-router.use('/users', require('./users.js'))
+router.use('/boards', authenticated, require('./boards.js'))
+router.use('/lists', authenticated, require('./lists.js'))
+router.use('/cards', authenticated, require('./cards.js'))
+router.use('/users', authenticated, require('./users.js'))
 
 module.exports = router
