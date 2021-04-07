@@ -3,6 +3,16 @@ const User = require('../models/user.js')
 // const bcrypt = require('bcrypt')
 const JwtStrategy = require('passport-jwt').Strategy
 
+passport.serializeUser((user, done) => {
+  done(null, user.id)
+})
+
+passport.deserializeUser(async (id, done) => {
+  await User.findById(id, (err, user) => {
+    done(err, user)
+  })
+})
+
 passport.use(
   new JwtStrategy(
     {

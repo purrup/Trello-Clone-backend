@@ -2,8 +2,8 @@ const express = require('express')
 const router = express.Router()
 const userController = require('../controllers/userController.js')
 
-// 取得單一user的頁面
-router.get('/profile/:id', userController.getUser)
+// 取得單一user的資料
+router.get('/', userController.getUser)
 // // 修改單一user
 // router.put('/:id', (req, res) => {
 //   res.send('edit a user')

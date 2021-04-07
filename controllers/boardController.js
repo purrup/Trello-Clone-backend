@@ -10,10 +10,6 @@ const boardController = {
     try {
       const { data } = req.body
       const board = await Boards.create({ ...data })
-      if (!board || board.length === 0) {
-        res.status(404).end()
-        return
-      }
       res.send(board)
     } catch (error) {
       console.log(error)
@@ -23,7 +19,13 @@ const boardController = {
   // 列出user的全部boards
   async getBoards(req, res) {
     try {
-      const boards = await Boards.find({ userCreated: req.params.id })
+      const boards = await Boards.find({ userCreated: req.user._id })
+      if (!boards || boards.length === 0) {
+        res.status(404).send({
+          message: 'No board of the user in db'
+        })
+        return
+      }
       res.send(boards)
     } catch (error) {
       console.log(error)

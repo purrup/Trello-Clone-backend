@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 const userController = {
-  async signUp(req, res) {
+  async signUp(req, res, next) {
     const { email, password, name } = req.body
     if (!email || !password || !name) {
       res.status(400).send('請填入所有欄位資料！')
@@ -27,6 +27,11 @@ const userController = {
           httpOnly: true
         })
         res.status(201).send(newUser)
+        // req.login(newUser, (err) => {
+        //   if (err) {
+        //     return next(err)
+        //   }
+        // })
       }
     } catch (error) {
       console.log(error)
@@ -40,12 +45,12 @@ const userController = {
       if (!user) {
         return res
           .status(401)
-          .json({ status: 'error', message: 'no such user found' })
+          .send({ status: 'error', message: 'no such user found' })
       }
       if (!bcrypt.compareSync(password, user.password)) {
         return res
           .status(401)
-          .json({ status: 'error', message: 'passwords did not match' })
+          .send({ status: 'error', message: 'passwords did not match' })
       }
       // issue token
       const payload = { id: user._id }
@@ -63,8 +68,18 @@ const userController = {
 
   async getUser(req, res) {
     try {
-      const user = await User.findById(req.params.id)
+      const user = await User.findById(req.user._id)
       res.send(user)
+    } catch (error) {
+      console.log(error)
+      res.status(500).send()
+    }
+  },
+  logOut(req, res) {
+    try {
+      req.logout()
+      res.clearCookie('token')
+      res.status(200).end()
     } catch (error) {
       console.log(error)
       res.status(500).send()
