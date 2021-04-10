@@ -6,7 +6,7 @@ const userController = {
   async signUp(req, res, next) {
     const { email, password, name } = req.body
     if (!email || !password || !name) {
-      res.status(400).send('請填入所有欄位資料！')
+      res.status(400).send({ message: '請填入所有欄位資料！' })
       return
     }
     try {
@@ -27,11 +27,6 @@ const userController = {
           httpOnly: true
         })
         res.status(201).send(newUser)
-        // req.login(newUser, (err) => {
-        //   if (err) {
-        //     return next(err)
-        //   }
-        // })
       }
     } catch (error) {
       console.log(error)
@@ -45,12 +40,12 @@ const userController = {
       if (!user) {
         return res
           .status(401)
-          .send({ status: 'error', message: 'no such user found' })
+          .send({ status: 'error', message: '此電子郵件尚未註冊' })
       }
       if (!bcrypt.compareSync(password, user.password)) {
         return res
           .status(401)
-          .send({ status: 'error', message: 'passwords did not match' })
+          .send({ status: 'error', message: '密碼有誤，請重新輸入' })
       }
       // issue token
       const payload = { id: user._id }

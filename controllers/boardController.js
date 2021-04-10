@@ -36,8 +36,14 @@ const boardController = {
   async getBoard(req, res) {
     try {
       // 取得board之下的lists and cards
+      console.log(req.user)
       const board = await Boards.aggregate([
-        { $match: { _id: mongoose.Types.ObjectId(req.params.id) } },
+        {
+          $match: {
+            _id: mongoose.Types.ObjectId(req.params.id),
+            userCreated: req.user._id
+          }
+        },
         {
           $lookup: {
             from: 'lists',
@@ -111,7 +117,7 @@ const boardController = {
         res.status(404).end()
         return
       }
-      res.send(`delete return query: ${board}`)
+      res.send(board)
     } catch (error) {
       console.log(error)
       res.status(500).send()
