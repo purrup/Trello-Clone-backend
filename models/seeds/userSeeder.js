@@ -11,15 +11,21 @@ db.on('error', () => {
 })
 
 db.once('open', async () => {
-  console.log('db connected!')
-  await User.collection.drop()
-  for (let i = 0; i < 5; i++) {
+  try {
+    console.log('db connected!')
+    const result = await User.find({})
+    if (result.length !== 0) {
+      await User.collection.drop()
+      console.log('Drop collection!')
+    }
+    // generate trial user
     User.create({
-      name: 'user' + i,
-      email: 'email' + i + '@test.com',
-      password: bcrypt.hashSync(`password${i}`, bcrypt.genSaltSync(10))
+      name: '試用帳號',
+      email: 'trial@gmail.com',
+      password: bcrypt.hashSync('123', bcrypt.genSaltSync(10))
     })
+    console.log('Trial user has been generated!')
+  } catch (error) {
+    console.log(error)
   }
-
-  console.log('Users seeds generated!')
 })

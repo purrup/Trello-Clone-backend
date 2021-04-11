@@ -12,19 +12,17 @@ db.on('error', () => {
 
 db.once('open', async () => {
   console.log('db connected!')
-  const users = await User.find({})
-
+  const result = await Board.find({})
+  if (result.length !== 0) {
+    await Board.collection.drop()
+    console.log('Drop collection!')
+  }
+  const trialUser = await User.find({})
   for (let i = 0; i < 5; i++) {
     Board.create({
-      title: 'Board title-' + i,
-      userCreated: getRandomUserId(users)
+      title: '看板' + i,
+      userCreated: trialUser[0]._id
     })
   }
-
   console.log('Boards seeds generated!')
 })
-
-function getRandomUserId(users) {
-  const randomUserIndex = Math.floor(Math.random() * Math.floor(users.length))
-  return users[randomUserIndex]._id
-}

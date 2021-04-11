@@ -13,15 +13,19 @@ db.on('error', () => {
 
 db.once('open', async () => {
   console.log('db connected!')
+  const result = await List.find({})
+  if (result.length !== 0) {
+    await List.collection.drop()
+    console.log('Drop collection!')
+  }
 
   const boards = await Board.find({})
-  const users = await User.find({})
-
-  for (let i = 0; i < 5; i++) {
+  const trialUser = await User.find({})
+  for (let i = 0; i < 30; i++) {
     List.create({
-      title: 'List title-' + i,
+      title: '列表 ' + i,
       boardId: getRandomBoardId(boards),
-      userCreated: getRandomUserId(users),
+      userCreated: trialUser[0]._id,
       order: i
     })
   }
@@ -32,9 +36,4 @@ db.once('open', async () => {
 function getRandomBoardId(boards) {
   const randomBoardIndex = Math.floor(Math.random() * Math.floor(boards.length))
   return boards[randomBoardIndex]._id
-}
-
-function getRandomUserId(users) {
-  const randomUserIndex = Math.floor(Math.random() * Math.floor(users.length))
-  return users[randomUserIndex]._id
 }
