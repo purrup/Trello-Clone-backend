@@ -1,13 +1,14 @@
 const express = require('express')
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 const mongoose = require('mongoose')
-const dbPath = 'mongodb://localhost/trello-clone'
+const dbPath = process.env.MONGODB_URI || 'mongodb://localhost/trello-clone'
 const cors = require('cors')
 const passport = require('passport')
 const cookieParser = require('cookie-parser')
-
-require('dotenv').config()
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 
 app.use(
   cors({
