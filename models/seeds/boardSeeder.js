@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Board = require('../board.js')
 const User = require('../user.js')
-const dbPath = 'mongodb://localhost/trello-clone'
+const dbPath = process.env.MONGODB_URI || 'mongodb://localhost/trello-clone'
 
 mongoose.connect(dbPath, { useNewUrlParser: true, useUnifiedTopology: true })
 const db = mongoose.connection
