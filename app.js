@@ -9,10 +9,12 @@ const cookieParser = require('cookie-parser')
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
-
 app.use(
   cors({
-    origin: 'https://trello-clone-frontend-2021.herokuapp.com/',
+    origin: [
+      'https://trello-clone-frontend-2021.herokuapp.com/',
+      'https://trello-clone-backend-2021.herokuapp.com/'
+    ],
     credentials: true
   })
 )
