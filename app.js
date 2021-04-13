@@ -9,15 +9,15 @@ const cookieParser = require('cookie-parser')
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
-app.use(
-  cors({
-    origin: [
-      'https://trello-clone-frontend-2021.herokuapp.com/',
-      'https://trello-clone-backend-2021.herokuapp.com/'
-    ],
-    credentials: true
-  })
-)
+const corsOptions = {
+  origin: [
+    'https://trello-clone-frontend-2021.herokuapp.com/',
+    'https://trello-clone-backend-2021.herokuapp.com/'
+  ],
+  methods: ['GET', 'PUT', 'POST', 'OPTIONS', 'PATCH', 'DELETE', 'HEAD'],
+  credentials: true
+}
+app.use(cors(corsOptions))
 app.use(passport.initialize())
 app.use(cookieParser())
 
