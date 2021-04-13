@@ -12,7 +12,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 app.use(
   cors({
-    origin: 'http://localhost:8080',
+    origin: 'https://trello-clone-frontend-2021.herokuapp.com/',
     credentials: true
   })
 )
