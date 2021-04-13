@@ -12,7 +12,7 @@ if (process.env.NODE_ENV !== 'production') {
 const corsOptions = {
   origin: [
     'https://trello-clone-frontend-2021.herokuapp.com/',
-    'https://trello-clone-backend-2021.herokuapp.com/'
+    'http://localhost:8080'
   ],
   methods: ['GET', 'PUT', 'POST', 'OPTIONS', 'PATCH', 'DELETE', 'HEAD'],
   credentials: true
