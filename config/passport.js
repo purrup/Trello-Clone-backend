@@ -2,21 +2,12 @@ const passport = require('passport')
 const User = require('../models/user.js')
 // const bcrypt = require('bcrypt')
 const JwtStrategy = require('passport-jwt').Strategy
-
-passport.serializeUser((user, done) => {
-  done(null, user.id)
-})
-
-passport.deserializeUser(async (id, done) => {
-  await User.findById(id, (err, user) => {
-    done(err, user)
-  })
-})
+const ExtractJwt = require('passport-jwt').ExtractJwt
 
 passport.use(
   new JwtStrategy(
     {
-      jwtFromRequest: (req) => req.cookies.token,
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: process.env.JWT_SECRET
     },
     async (jwtPayload, done) => {

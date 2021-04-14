@@ -4,13 +4,5 @@ const userController = require('../controllers/userController.js')
 
 // 取得單一user的資料
 router.get('/', userController.getUser)
-// // 修改單一user
-// router.put('/:id', (req, res) => {
-//   res.send('edit a user')
-// })
-// // 刪除單一user
-// router.delete('/:id', (req, res) => {
-//   res.send('delete a user')
-// })
 
 module.exports = router

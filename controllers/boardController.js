@@ -19,6 +19,7 @@ const boardController = {
   // 列出user的全部boards
   async getBoards(req, res) {
     try {
+      console.log('getBoards user: ', req.user)
       const boards = await Boards.find({ userCreated: req.user._id })
       if (!boards || boards.length === 0) {
         res.status(404).send({

@@ -12,21 +12,21 @@ const userController = {
     try {
       const user = await User.findOne({ email })
       if (user) {
-        res.status(409).send({ message: '此 email 已被註冊過！' })
+        return res.status(409).send({ message: '此 email 已被註冊過！' })
       } else {
         const newUser = await User.create({
           email,
           password: bcrypt.hashSync(password, bcrypt.genSaltSync(10)),
           name
         })
-        console.log('newUser', newUser)
         const payload = { id: newUser._id }
         const token = jwt.sign(payload, process.env.JWT_SECRET)
-        res.cookie('token', token, {
+        res.json({
           expires: new Date(Date.now() + 1000 * 3600 * 24),
-          httpOnly: true
+          user: newUser,
+          token: token
         })
-        res.status(201).send(newUser)
+        return res.status(201)
       }
     } catch (error) {
       console.log(error)
@@ -50,11 +50,17 @@ const userController = {
       // issue token
       const payload = { id: user._id }
       const token = jwt.sign(payload, process.env.JWT_SECRET)
-      res.cookie('token', token, {
-        expires: new Date(Date.now() + 1000 * 3600 * 24), // 1 day
-        httpOnly: true
+      req.logIn(user, { session: false }, (err) => {
+        if (err) {
+          return console.log(err)
+        }
+        res.json({
+          expires: new Date(Date.now() + 1000 * 3600 * 24), // 1 day
+          token: token,
+          user
+        })
       })
-      return res.send(user)
+      console.log('req.user login: ', req.user)
     } catch (error) {
       console.log(error)
       res.status(500).send()
@@ -73,7 +79,6 @@ const userController = {
   logOut(req, res) {
     try {
       req.logout()
-      res.clearCookie('token')
       res.status(200).end()
     } catch (error) {
       console.log(error)
