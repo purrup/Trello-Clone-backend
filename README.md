@@ -32,4 +32,4 @@ npm run dev
 
 ## Authors
 
-* **Vin Tsai** - [GitHub](https://github.com/purrup)
+* **Vin** - [GitHub](https://github.com/purrup)

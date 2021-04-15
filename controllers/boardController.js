@@ -38,7 +38,7 @@ const boardController = {
     try {
       // 取得board之下的lists and cards
 
-      // 如果使用者亂輸入card id或不符合mongoose.Types.ObjectId的限制
+      // 如果使用者亂輸入board id或不符合mongoose.Types.ObjectId的限制
       if (req.params.id.length !== 24) {
         res.status(404).send({
           message: '抱歉，查無此看板'
