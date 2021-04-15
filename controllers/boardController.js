@@ -37,7 +37,14 @@ const boardController = {
   async getBoard(req, res) {
     try {
       // 取得board之下的lists and cards
-      console.log(req.user)
+
+      // 如果使用者亂輸入card id或不符合mongoose.Types.ObjectId的限制
+      if (req.params.id.length !== 24) {
+        res.status(404).send({
+          message: '抱歉，查無此看板'
+        })
+        return
+      }
       const board = await Boards.aggregate([
         {
           $match: {
